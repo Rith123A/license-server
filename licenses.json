@@ -1,6 +1,9 @@
 {
     "licenses": [
-       
+         {
+            "key": "1324-3242135-535123",
+            "expiration_date": "2025-12-25T00:32:59"
+         },  
         {
             "key": "DEF789-GHI012",
             "expiration_date": "2025-01-19T00:32:59"
