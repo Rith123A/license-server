@@ -1,9 +1,9 @@
 
 {
-    "user1@example.com": {
-        "expiration_date": "2023-12-31"
+    "rithmmokh+user1@yandex.com": {
+        "expiration_date": "2025-12-31"
     },
     "user2@example.com": {
-        "expiration_date": "2024-01-15"
+        "expiration_date": "2025-04-15"
     }
 }
