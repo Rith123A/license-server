@@ -4,8 +4,5 @@
     },
     "user2@example.com": {
         "expiration_date": "2025-04-15"
-    },
-    "rithmmokh+admin@yandex.com": {
-        "expiration_date": "2025-03-14"
     }
 }
