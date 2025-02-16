@@ -4,5 +4,8 @@
     },
     "user2@example.com": {
         "expiration_date": "2025-04-15"
+    },
+    "rith8555+user@yandex.com": {
+        "expiration_date": "2027-04-15"
     }
 }
