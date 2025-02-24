@@ -536,7 +536,7 @@ def initialize_browser(chrome_driver_path, position, device_type, headless, yand
             birth = birth_month + birth_day + birth_year
             sex = random.choice(["Male", "Female"])
 
-            driver.find_element(By.XPATH, "//*[@aria-label='Get started']").click()
+            driver.find_element(By.XPATH, "//*[@aria-label='Get started' or @aria-label='No, create account' or @aria-label='Create new account' or @aria-label='Yes, create account']").click()
             time.sleep(5)
             driver.find_element(By.XPATH, "//*[@aria-label='First name']").send_keys(f"{first_name}")
             time.sleep(5)
