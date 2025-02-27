@@ -13,8 +13,8 @@ from PyQt5.QtWidgets import (
     QMessageBox, QComboBox, QCheckBox, QGroupBox, QFileDialog, QTextEdit, QDialog, QTableWidget, QTableWidgetItem, QHeaderView,
 )
 
-from PyQt5.QtGui import QIcon, QFont 
-from PyQt5.QtCore import Qt, QTimer, QUrl, QPropertyAnimation, QPointF, QEasingCurve
+from PyQt5.QtGui import QIcon, QFont, QMovie
+from PyQt5.QtCore import Qt, QTimer, QUrl, QPropertyAnimation, QPointF, QEasingCurve, QThread, pyqtSignal
 from PyQt5.QtGui import QDesktopServices
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
@@ -536,7 +536,7 @@ def initialize_browser(chrome_driver_path, position, device_type, headless, yand
             birth = birth_month + birth_day + birth_year
             sex = random.choice(["Male", "Female"])
 
-            driver.find_element(By.XPATH, "//*[@aria-label='Get started' or @aria-label='No, create account' or @aria-label='Create new account' or @aria-label='Yes, create account']").click()
+            driver.find_element(By.XPATH, "//*[@aria-label='Get started' or @aria-label='Create new account' or @aria-label='No, create account'or @aria-label='Yes, create account']").click()
             time.sleep(5)
             driver.find_element(By.XPATH, "//*[@aria-label='First name']").send_keys(f"{first_name}")
             time.sleep(5)
@@ -1043,6 +1043,8 @@ class LogViewWindow(QDialog):
                     self.log_table.setItem(row, 1, QTableWidgetItem(password))
                     self.log_table.setItem(row, 2, QTableWidgetItem(email))
                     self.log_table.setItem(row, 3, QTableWidgetItem(cookies))
+                else:
+                    self.log_table.setItem(row, 0, QTableWidgetItem("Invalid log entry format."))
         except FileNotFoundError:
             self.log_table.setRowCount(1)
             self.log_table.setItem(0, 0, QTableWidgetItem("Log file not found."))
@@ -1057,16 +1059,31 @@ class NewWindow(QDialog):
         self.show_message()
 
 
+class TypingEffectThread(QThread):
+    update_text = pyqtSignal(str)
+
+    def __init__(self, text, parent=None):
+        super().__init__(parent)
+        self.text = text
+
+    def run(self):
+        for i in range(len(self.text) + 1):
+            self.update_text.emit(self.text[:i])
+            self.msleep(50)
+
         
         
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
-        self.setWindowTitle("DEV By_Dt.Bunrith")
+        self.setWindowTitle("Dev By_Dt.Bunrith")
         self.setFixedSize(1080, 500)
         self.setWindowFlags(Qt.Dialog)
-        self.setWindowIcon(QIcon('fb.ico'))
 
+        # Add animation GIF to the window title
+        self.movie = QMovie("Animation/Animation.gif")
+        self.movie.frameChanged.connect(self.update_title)
+        self.movie.start()
 
         self.setStyleSheet("""
             QMainWindow {
@@ -1149,8 +1166,10 @@ class MainWindow(QMainWindow):
         self.stop_button.clicked.connect(self.stop_chrome_windows)
         self.stop_button.setEnabled(False)
         self.save_config_button = QPushButton("Save Config")
+        self.save_config_button.setEnabled(False)  # Initially disabled
         self.save_config_button.clicked.connect(self.save_config)
         self.load_config_button = QPushButton("Load Config")
+        self.load_config_button.setEnabled(False)  # Initially disabled
         self.load_config_button.clicked.connect(self.load_config)
         button_layout = QHBoxLayout()
         button_layout.addWidget(self.start_button)
@@ -1191,6 +1210,15 @@ class MainWindow(QMainWindow):
         self.license_status.setPlaceholderText("License verification status will appear here...")
         self.license_status.setReadOnly(True)
         license_layout.addWidget(self.license_status)
+
+        # Add animation GIF to license_status (initially hidden)
+        self.license_status_movie = QMovie("Animation/Animation.gif")
+        self.license_status_label = QLabel()
+        self.license_status_label.setAlignment(Qt.AlignCenter)  # Center the GIF
+        self.license_status_label.setMovie(self.license_status_movie)
+        self.license_status_label.setVisible(False)  # Initially hidden
+        license_layout.addWidget(self.license_status_label)
+
         license_group.setLayout(license_layout)
         right_layout.addWidget(license_group)
         countdown_group = QGroupBox("License Expired")
@@ -1229,14 +1257,13 @@ class MainWindow(QMainWindow):
         self.timer.timeout.connect(self.update_countdown)
         self.timer.start(1000)
 
-        self.snow_effect = SnowEffect(self)
-        self.snow_effect.lower()  # Ensure snow effect is behind other widgets
-
         self.clear_temp_directories()
 
-    def resizeEvent(self, event):
-        super().resizeEvent(event)
-        self.snow_effect.setFixedSize(self.size())
+        self.typing_effect_thread = None
+
+    def update_title(self):
+        current_frame = self.movie.currentPixmap()
+        self.setWindowIcon(QIcon(current_frame))
 
     def toggle_random_password(self):
         if self.random_password_checkbox.isChecked():
@@ -1280,24 +1307,48 @@ class MainWindow(QMainWindow):
             self.verified_license_key = entered_key
             self.expiration_date = expiration_date
             self.start_button.setEnabled(True)
-            self.open_log_view_button.setEnabled(True)  # Enable the button when license is verified
-            self.get_otp_button.setEnabled(True)  # Enable the button when license is verified
+            self.open_log_view_button.setEnabled(True)
+            self.get_otp_button.setEnabled(True)
+            self.save_config_button.setEnabled(True)
+            self.load_config_button.setEnabled(True)
             self.license_status.append("License key verified! You can now start the Tool.")
-            self.license_status.append(f"License expires on: {expiration_date}")
+
+            # Start typing effect for the welcome message
+            welcome_message = (
+                "License Key Verified!\n"
+                "Thank You For Support Me.\n"
+                "You can use Tool Reg Facebook Account Novery.\n"
+                f"License expires on: {expiration_date}\n"
+                "Developer: By_Dt.Bunrith"
+                )
+
+            
+            self.typing_effect_thread = TypingEffectThread(welcome_message)
+            self.typing_effect_thread.update_text.connect(self.license_status.setPlainText)
+            self.typing_effect_thread.start()
+
+            # Show the animation GIF
+            self.license_status_label.setVisible(True)
+            self.license_status_movie.start()
 
             # Save the verification time
             self.verification_time = datetime.now().isoformat()
-
 
             self.save_license_key(entered_key)
 
         else:
             self.license_verified = False
             self.start_button.setEnabled(False)
-            self.open_log_view_button.setEnabled(False)  # Ensure the button is disabled if verification fails
-            self.get_otp_button.setEnabled(False)  # Ensure the button is disabled if verification fails
+            self.open_log_view_button.setEnabled(False)
+            self.get_otp_button.setEnabled(False)
+            self.save_config_button.setEnabled(False)
+            self.load_config_button.setEnabled(False)
             self.license_status.append("Invalid license key. Please try again.")
             self.clear_saved_license_key()
+
+            # Hide the animation GIF
+            self.license_status_label.setVisible(False)
+            self.license_status_movie.stop()
 
     def update_countdown(self):
         if self.license_verified and self.expiration_date:
@@ -1308,13 +1359,16 @@ class MainWindow(QMainWindow):
                 hours, remainder = divmod(remaining_time.seconds, 3600)
                 minutes, seconds = divmod(remainder, 60)
                 self.countdown_label.setText(
-                    f"License expires in: {days} days {hours} hours {minutes} minutes {seconds} seconds"
+                    f"License expires in: {days:02d} days {hours:02d} hours {minutes:02d} min {seconds:02d} sec"
                 )
             else:
                 self.countdown_label.setText("License has expired. Please verify again.")
                 self.license_verified = False
                 self.start_button.setEnabled(False)
-                self.open_log_view_button.setEnabled(False)  # Disable the button if the license expires
+                self.open_log_view_button.setEnabled(False)
+                self.get_otp_button.setEnabled(False)
+                self.save_config_button.setEnabled(False)
+                self.load_config_button.setEnabled(False)
                 self.clear_saved_license_key()
         else:
             self.countdown_label.setText("License not verified or expired.")
@@ -1447,7 +1501,7 @@ class MainWindow(QMainWindow):
 def clear_temp_directories():
     temp_dirs = [os.getenv('TEMP'), os.getenv('TMP')]
     for temp_dir in temp_dirs:
-        if temp_dir and os.path.exists(temp_dir):
+        if (temp_dir and os.path.exists(temp_dir)):
             for root, dirs, files in os.walk(temp_dir):
                 for file in files:
                     try:
@@ -1729,40 +1783,6 @@ def get_code_from_email(username, password, thisEmail):
             mail.close()
             mail.logout()
         return GET_CODE
-
-class Snowflake(QWidget):
-    def __init__(self, parent=None):
-        super().__init__(parent)
-        self.setFixedSize(10, 10)
-        self.setStyleSheet("background-color: white; border-radius: 5px;")
-
-class SnowEffect(QWidget):
-    def __init__(self, parent=None):
-        super().__init__(parent)
-        self.setAttribute(Qt.WA_TransparentForMouseEvents)
-        self.setAttribute(Qt.WA_NoSystemBackground)
-        self.setAttribute(Qt.WA_TranslucentBackground)
-        self.setFixedSize(parent.size())
-        self.snowflakes = []
-
-        for _ in range(100):
-            snowflake = Snowflake(self)
-            snowflake.move(random.randint(0, self.width()), random.randint(-self.height(), 0))
-            self.snowflakes.append(snowflake)
-            self.animate_snowflake(snowflake)
-
-    def animate_snowflake(self, snowflake):
-        animation = QPropertyAnimation(snowflake, b"pos")
-        animation.setDuration(random.randint(5000, 10000))
-        animation.setStartValue(snowflake.pos())
-        animation.setEndValue(QPointF(snowflake.x(), self.height()))
-        animation.setEasingCurve(QEasingCurve.InOutQuad)
-        animation.finished.connect(lambda: self.reset_snowflake(snowflake))
-        animation.start()
-
-    def reset_snowflake(self, snowflake):
-        snowflake.move(random.randint(0, self.width()), random.randint(-self.height(), 0))
-        self.animate_snowflake(snowflake)
 
 if __name__ == "__main__":
     app = QApplication(sys.argv) 
