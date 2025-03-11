@@ -14,6 +14,11 @@
       "key": "1EXAMPLE-KEY-1234567",
       "pc_identifier": "03000200-0400-0500-0006-000700080009",
       "expiration_date": "2126-12-31T23:59:59"
+    },
+    {
+      "key": "6D68K-FVRHO-GQPN8-20N3N",
+      "pc_identifier": "03000200-0400-0500-0006-000700080009",
+      "expiration_date": "2025-12-31T23:59:59"
     }
     
   ]
