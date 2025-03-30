@@ -19,6 +19,11 @@
       "key": "6D68K-FVRHO-GQPN8-20N3N",
       "pc_identifier": "03000200-0400-0500-0006-000700080009",
       "expiration_date": "2025-12-31T23:59:59"
+    },
+    {
+      "key": "7568K-FVRH5-GQ8N8-20N4N",
+      "pc_identifier": "FFFFFFFF-FFFF-FFFF-FFFF-FFFFFFFFFFFF",
+      "expiration_date": "2025-12-31T23:59:59"
     }
     
   ]
