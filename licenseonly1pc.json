@@ -24,6 +24,11 @@
       "key": "7568K-FVRH5-GQ8N8-20N4N",
       "pc_identifier": "FFFFFFFF-FFFF-FFFF-FFFF-FFFFFFFFFFFF",
       "expiration_date": "2025-12-31T23:59:59"
+    },
+    {
+      "key": "P1O2P-3Q6R5-S6T7U-8V0W0",
+      "pc_identifier": "03000200-0400-0500-0006-0007000800091",
+      "expiration_date": "2027-12-31T23:59:59"
     }
     
   ]
