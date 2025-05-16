@@ -44,7 +44,12 @@
       "key": "VMMLG-MHPQW-T4BPN-FP72R",
       "pc_identifier": "03000200-0400-0500-0006-000700080009",
       "expiration_date": "2025-06-29T23:59:59"
-    }
+    },
+    {
+      "key": "SO6B2-P83QR-HNQCF-CUJ0Z",
+      "pc_identifier": "00000000-0000-0000-0000-309C231E9174",
+      "expiration_date": "2028-02-09T23:59:59"
+    
     
   ]
 }
