@@ -9,6 +9,11 @@
       "key": "1N1O2P-3Q4R5-S6T7U-8V9W",
       "pc_identifier": "03000200-0400-0500-0006-000700080009",
       "expiration_date": "2024-12-23T23:59:59"
+    },
+    {
+      "key": "CK3RY-RMSOO-M5QV9-KGF1U",
+      "pc_identifier": "03000200-0400-0500-0006-000700080009",
+      "expiration_date": "2028-02-12T23:59:59"
     }
   ]
 }
