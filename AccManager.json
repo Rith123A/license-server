@@ -29,6 +29,11 @@
       "key": "R5I3Y-R02K4-KL7BU-4CBWE",
       "pc_identifier": "03000200-0400-0500-0006-000700080009",
       "expiration_date": "2025-06-03T23:20:02"
+    },
+    {
+      "key": "PUNGV-2223K-SC9R8-QQL58",
+      "pc_identifier": "0x88d82e9aace9",
+      "expiration_date": "2025-06-04T23:20:02"
     }
   ]
 }
