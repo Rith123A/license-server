@@ -44,6 +44,11 @@
       "key": "ADMPH-EQMTW-CC60Y-5U27Z",
       "pc_identifier": "EDEDC5BF-93D7-D572-449A-A036BCABBCBA",
       "expiration_date": "2025-06-08T23:20:02"
+    },
+    {
+      "key": "WEQPP-NKW64-B56DO-WE6OY",
+      "pc_identifier": "0x4438e80c6bdc",
+      "expiration_date": "2025-06-08T23:20:02"
     }
   ]
 }
