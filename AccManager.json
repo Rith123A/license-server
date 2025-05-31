@@ -74,6 +74,11 @@
       "key": "3WN11-3I4DP-45UG9-O8BOA",
       "pc_identifier": "035E02D8-04D3-058D-8C06-740700080009",
       "expiration_date": "2025-06-30T03:25:42"
+    },
+    {
+      "key": "2MC1S-TTXW9-SOCZK-MVDZ5",
+      "pc_identifier": "0xe6f2ff26627a",
+      "expiration_date": "2025-07-01T03:25:42"
     }
   ]
 }
