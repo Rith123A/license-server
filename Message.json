@@ -1,6 +1,17 @@
 {
     "messages": [
-        "🌟 សូមស្វាគមន៍មកកាន់កម្មវិធីរបស់យើង!",
-        "🙏 ជូនពរ​ឲ្យ​មាន​សុភមង្គល និងជោគជ័យ!",
-    ]
+        "🔹 System running optimally",
+        "⚠️ Check for new updates",
+        "✅ License active (Premium)",
+        "📅 Expires: 2024-12-31",
+        "🔒 Secure connection established",
+        "🌐 Connected to license server",
+        "🔄 Last sync: 5 minutes ago"
+    ],
+    "refresh_rate": 10000,
+    "message_types": {
+        "info": {"color": "#3498db", "icon": "ℹ️"},
+        "warning": {"color": "#f39c12", "icon": "⚠️"},
+        "error": {"color": "#e74c3c", "icon": "❌"}
+    }
 }
