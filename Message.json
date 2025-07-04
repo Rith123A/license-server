@@ -1,5 +1,11 @@
 {
-    "title_message": "Tool Manager",
-    "subtitle": "Professional Edition",
-    "color": "#3498db"
+    "messages": [
+        "Welcome back! Ready to work?",
+        "Premium features activated!",
+        "Your license expires in 30 days",
+        "New update available!",
+        "Hello, Developer!",
+        "System is running smoothly",
+        "Thank you for using our tool!"
+    ]
 }
