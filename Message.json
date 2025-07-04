@@ -1,17 +1,67 @@
 {
     "messages": [
-        "🔹 System running optimally",
-        "⚠️ Check for new updates",
-        "✅ License active (Premium)",
-        "📅 Expires: 2024-12-31",
-        "🔒 Secure connection established",
-        "🌐 Connected to license server",
-        "🔄 Last sync: 5 minutes ago"
+        "🌟 សូមស្វាគមន៍មកកាន់កម្មវិធីរបស់យើង!",
+        "🙏 ជូនពរ​ឲ្យ​មាន​សុភមង្គល និងជោគជ័យ!",
+        "🕉️ សូមឱ្យអ្នករកឃើញសន្តិភាពក្នុងចិត្ត",
+        "💎 អ្នកកំពុងប្រើកំណែពិសេស",
+        "📅 អាជ្ញាប័ណ្ណសុវត្ថិភាពរហូតដល់ឆ្នាំ ២០២៤",
+        "🔐 ការតភ្ជាប់ដោយសុវត្ថិភាព",
+        "🌏 ភ្ជាប់ជាមួយម៉ាស៊ីនបម្រើអាជ្ញាប័ណ្ណ",
+        "🔄 ធ្វើសមកាលកម្មថ្មីៗនេះ"
     ],
+    
+    "calendar": {
+        "system": "buddhist",
+        "year_offset": 543,
+        "khmer_months": [
+            "មករា", "កុម្ភៈ", "មីនា", "មេសា", 
+            "ឧសភា", "មិថុនា", "កក្កដា", "សីហា",
+            "កញ្ញា", "តុលា", "វិច្ឆិកា", "ធ្នូ"
+        ],
+        "important_dates": {
+            "khmer_new_year": {
+                "date": "04-13",
+                "duration": 3,
+                "messages": [
+                    "🎉 សួស្ដីឆ្នាំថ្មី! ជូនពរឆ្នាំថ្មីដ៏រុងរឿង!",
+                    "🙇 សូមជូនពរអំណរបុណ្យចូលឆ្នាំខ្មែរ!",
+                    "🥭 សូមជូនពរឱ្យមានសុភមង្គលក្នុងឆ្នាំថ្មី!"
+                ]
+            },
+            "vesak_bochea": {
+                "date": "05-05",
+                "messages": [
+                    "🪔 បុណ្យវិសាខបូជា - ថ្ងៃប្រសូត្រ ត្រាស់ដឹង និងបរិនិព្វានរបស់ព្រះពុទ្ធ"
+                ]
+            },
+            "pchum_ben": {
+                "date": "09-22",
+                "duration": 15,
+                "messages": [
+                    "🕯️ សូមជូនពរដល់អ្នកទាំងឡាយក្នុងឱកាសបុណ្យភ្ជុំបិណ្ឌ!"
+                ]
+            }
+        }
+    },
+
     "refresh_rate": 10000,
+    
     "message_types": {
         "info": {"color": "#3498db", "icon": "ℹ️"},
         "warning": {"color": "#f39c12", "icon": "⚠️"},
-        "error": {"color": "#e74c3c", "icon": "❌"}
+        "error": {"color": "#e74c3c", "icon": "❌"},
+        "blessing": {"color": "#2ecc71", "icon": "🙏"},
+        "festive": {"color": "#e84393", "icon": "🎊"}
+    },
+
+    "localization": {
+        "language": "km",
+        "time_format": "HH:mm:ss",
+        "date_format": "YYYY-MM-DD",
+        "first_day_of_week": 1,
+        "number_format": {
+            "decimal": ",",
+            "thousands": "."
+        }
     }
 }
