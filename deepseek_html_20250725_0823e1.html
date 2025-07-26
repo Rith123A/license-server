@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Guerrilla Mail Client</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom styles for Inter font and general body styling */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f4f8; /* Light blue-gray background */
+        }
+        /* Basic styling for better readability on mobile */
+        .container {
+            max-width: 90%;
+            margin: 0 auto;
+        }
+        @media (min-width: 768px) {
+            .container {
+                max-width: 768px;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center py-12">
+    <div class="container bg-white p-8 rounded-lg shadow-xl w-full">
+        <h1 class="text-4xl font-extrabold text-center text-gray-800 mb-8">Guerrilla Mail Client</h1>
+
+        <!-- Email Address Display -->
+        <div class="mb-6">
+            <label for="emailAddress" class="block text-lg font-semibold text-gray-700 mb-2">Your Current Email Address:</label>
+            <div class="flex items-center space-x-2">
+                <input type="text" id="emailAddress" readonly="readonly" class="flex-grow p-3 border border-gray-300 rounded-md bg-gray-50 text-gray-800 text-lg font-medium focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                <button id="copyEmailBtn" class="px-4 py-3 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition duration-300 ease-in-out shadow-md">Copy</button>
+            </div>
+        </div>
+
+        <!-- Actions -->
+        <div class="flex flex-col sm:flex-row justify-center gap-4 mb-8">
+            <button id="getNewEmailBtn" class="w-full sm:w-auto px-6 py-3 bg-green-600 text-white rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50 transition duration-300 ease-in-out shadow-md">Get New Email Address</button>
+            <button id="checkEmailBtn" class="w-full sm:w-auto px-6 py-3 bg-purple-600 text-white rounded-md hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-50 transition duration-300 ease-in-out shadow-md">Check for New Emails</button>
+        </div>
+
+        <!-- Custom Email Address Input -->
+        <div class="mb-8 p-6 bg-blue-50 rounded-lg border border-blue-200 shadow-sm">
+            <h2 class="text-xl font-bold text-blue-800 mb-4">Check with Custom Email Address</h2>
+            <div class="flex flex-col sm:flex-row items-center space-y-3 sm:space-y-0 sm:space-x-3">
+                <input type="email" id="customEmailInput" placeholder="Enter custom email address" class="flex-grow p-3 border border-blue-300 rounded-md bg-white text-gray-800 text-base focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                <button id="useCustomEmailBtn" class="w-full sm:w-auto px-6 py-3 bg-blue-700 text-white rounded-md hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition duration-300 ease-in-out shadow-md">Use This Address</button>
+            </div>
+        </div>
+
+        <!-- Loading Indicator -->
+        <div id="loadingIndicator" class="hidden text-center text-blue-600 font-semibold mb-6">
+            <svg class="animate-spin h-8 w-8 text-blue-600 mx-auto mb-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+            Loading...
+        </div>
+
+        <!-- Messages Display -->
+        <div id="messagesContainer" class="bg-gray-50 p-6 rounded-lg border border-gray-200 shadow-inner">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">Inbox</h2>
+            <div id="inboxMessages" class="space-y-4">
+                <p class="text-gray-600 text-center" id="noMessagesText">No messages yet. Get an email address or use a custom one!</p>
+            </div>
+        </div>
+
+        <!-- Custom Alert/Message Box -->
+        <div id="messageBox" class="fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center z-50 hidden">
+            <div class="bg-white p-8 rounded-lg shadow-2xl max-w-sm w-full text-center">
+                <p id="messageBoxContent" class="text-lg font-semibold text-gray-800 mb-6"></p>
+                <button id="messageBoxCloseBtn" class="px-6 py-3 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition duration-300 ease-in-out">OK</button>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // Store the current email address and sequence number
+        let currentEmailAddress = '';
+        let currentEmailSeq = 0; // Used for API-generated emails (sid_token)
+        let intervalId = null; // To store the interval for auto-checking emails
+
+        // Get DOM elements
+        const emailAddressInput = document.getElementById('emailAddress');
+        const copyEmailBtn = document.getElementById('copyEmailBtn');
+        const getNewEmailBtn = document.getElementById('getNewEmailBtn');
+        const checkEmailBtn = document.getElementById('checkEmailBtn');
+        const customEmailInput = document.getElementById('customEmailInput');
+        const useCustomEmailBtn = document.getElementById('useCustomEmailBtn');
+        const loadingIndicator = document.getElementById('loadingIndicator');
+        const inboxMessages = document.getElementById('inboxMessages');
+        const noMessagesText = document.getElementById('noMessagesText');
+        const messageBox = document.getElementById('messageBox');
+        const messageBoxContent = document.getElementById('messageBoxContent');
+        const messageBoxCloseBtn = document.getElementById('messageBoxCloseBtn');
+
+        // Function to show a custom message box
+        function showMessageBox(message) {
+            messageBoxContent.textContent = message;
+            messageBox.classList.remove('hidden');
+        }
+
+        // Function to hide the custom message box
+        messageBoxCloseBtn.addEventListener('click', () => {
+            messageBox.classList.add('hidden');
+        });
+
+        // Function to display loading indicator
+        function showLoading() {
+            loadingIndicator.classList.remove('hidden');
+        }
+
+        // Function to hide loading indicator
+        function hideLoading() {
+            loadingIndicator.classList.add('hidden');
+        }
+
+        // Function to set the current email address and update UI
+        function setEmailAddress(email, seq = 0) {
+            currentEmailAddress = email;
+            currentEmailSeq = seq;
+            emailAddressInput.value = currentEmailAddress;
+            inboxMessages.innerHTML = '<p class="text-gray-600 text-center" id="noMessagesText">No messages yet. Check for new emails!</p>';
+            noMessagesText.classList.remove('hidden');
+
+            // Clear any existing auto-check interval
+            if (intervalId) {
+                clearInterval(intervalId);
+            }
+        }
+
+        // Function to fetch a new email address
+        async function getNewEmailAddress() {
+            showLoading();
+            try {
+                const response = await fetch('https://api.guerrillamail.com/ajax.php?f=get_email_address');
+                const data = await response.json();
+
+                if (data && data.email_addr) {
+                    setEmailAddress(data.email_addr, data.sid_token || 0);
+                    showMessageBox('New email address generated successfully!');
+                    // Start auto-checking for new emails every 10 seconds for API-generated addresses
+                    intervalId = setInterval(checkEmail, 10000);
+                } else {
+                    showMessageBox('Failed to get a new email address. Please try again.');
+                }
+            } catch (error) {
+                console.error('Error fetching new email address:', error);
+                showMessageBox('An error occurred while getting a new email address.');
+            } finally {
+                hideLoading();
+            }
+        }
+
+        // Function to use a custom email address
+        async function useCustomEmailAddress() {
+            const customEmail = customEmailInput.value.trim();
+            if (!customEmail) {
+                showMessageBox('Please enter a custom email address.');
+                return;
+            }
+            // Basic email format validation
+            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(customEmail)) {
+                showMessageBox('Please enter a valid email address format.');
+                return;
+            }
+
+            setEmailAddress(customEmail, 0);
+            showMessageBox(`Using custom email address: ${customEmail}. Checking for emails...`);
+            await checkEmail();
+        }
+
+        // Function to check for new emails
+        async function checkEmail() {
+            if (!currentEmailAddress) {
+                showMessageBox('Please get an email address or use a custom one first.');
+                return;
+            }
+
+            showLoading();
+            try {
+                let apiUrl = `https://api.guerrillamail.com/ajax.php?f=check_email&email_addr=${encodeURIComponent(currentEmailAddress)}`;
+                if (currentEmailSeq !== 0) {
+                    apiUrl += `&seq=${currentEmailSeq}`;
+                } else {
+                    apiUrl += `&seq=0`;
+                }
+                apiUrl += `&offset=0`;
+
+                const response = await fetch(apiUrl);
+                const data = await response.json();
+
+                if (data && data.list && data.list.length > 0) {
+                    noMessagesText.classList.add('hidden');
+                    data.list.forEach(mail => {
+                        if (!document.getElementById(`mail-${mail.mail_id}`)) {
+                            const mailItem = document.createElement('div');
+                            mailItem.id = `mail-${mail.mail_id}`;
+                            mailItem.className = 'bg-white p-4 rounded-md shadow-sm border border-gray-200 mb-3';
+                            mailItem.innerHTML = `
+                                <p class="text-sm text-gray-500 mb-1"><strong>From:</strong> ${mail.mail_from}</p>
+                                <p class="text-md font-semibold text-gray-800 mb-2"><strong>Subject:</strong> ${mail.mail_subject || '(No Subject)'}</p>
+                                <div class="text-gray-700 text-sm overflow-hidden max-h-24">
+                                    <p>${mail.mail_excerpt || '(No content preview)'}</p>
+                                </div>
+                                <button class="view-full-mail mt-2 text-blue-600 hover:underline text-sm" data-mail-id="${mail.mail_id}">View Full Mail</button>
+                            `;
+                            inboxMessages.prepend(mailItem);
+
+                            mailItem.querySelector('.view-full-mail').addEventListener('click', async (event) => {
+                                const mailId = event.target.dataset.mailId;
+                                await viewFullMail(mailId);
+                            });
+                        }
+                    });
+                    showMessageBox('New emails checked!');
+                } else {
+                    showMessageBox('No new emails found.');
+                }
+            } catch (error) {
+                console.error('Error checking emails:', error);
+                showMessageBox('An error occurred while checking emails.');
+            } finally {
+                hideLoading();
+            }
+        }
+
+        // Function to view full mail content
+        async function viewFullMail(mailId) {
+            showLoading();
+            try {
+                const response = await fetch(`https://api.guerrillamail.com/ajax.php?f=fetch_email&email_id=${mailId}`);
+                const data = await response.json();
+
+                if (data && data.mail_body) {
+                    const fullMailContent = `
+                        <p class="text-sm text-gray-500 mb-1"><strong>From:</strong> ${data.mail_from}</p>
+                        <p class="text-md font-semibold text-gray-800 mb-2"><strong>Subject:</strong> ${data.mail_subject || '(No Subject)'}</p>
+                        <hr class="my-3 border-gray-300">
+                        <div class="text-gray-700 text-sm text-left whitespace-pre-wrap">${data.mail_body}</div>
+                    `;
+                    messageBoxContent.innerHTML = fullMailContent;
+                    messageBox.classList.remove('hidden');
+                } else {
+                    showMessageBox('Failed to fetch full mail content.');
+                }
+            } catch (error) {
+                console.error('Error fetching full mail:', error);
+                showMessageBox('An error occurred while fetching full mail content.');
+            } finally {
+                hideLoading();
+            }
+        }
+
+        // Event Listeners
+        getNewEmailBtn.addEventListener('click', getNewEmailAddress);
+        checkEmailBtn.addEventListener('click', checkEmail);
+        useCustomEmailBtn.addEventListener('click', useCustomEmailAddress);
+
+        copyEmailBtn.addEventListener('click', () => {
+            if (emailAddressInput.value) {
+                emailAddressInput.select();
+                document.execCommand('copy');
+                showMessageBox('Email address copied to clipboard!');
+            } else {
+                showMessageBox('No email address to copy.');
+            }
+        });
+
+        // Initial call to get an email address when the page loads
+        window.onload = getNewEmailAddress;
+    </script>
+</body>
+</html>
