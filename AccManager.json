@@ -11,59 +11,9 @@
     "expiration_date": "2025-11-15T08:52:03"
     },
     {
-    "key": "QHX42-G26JG-K3ZVR-L4LIE",
-    "pc_identifier": "8A23A678-69CA-F211-A85F-D843AE9F4404",
-    "expiration_date": "2025-09-14T11:33:49"
-    },
-    {
-    "key": "Y1VO1-FO6XI-7G2K8-NW17P",
-    "pc_identifier": "03000200-0400-0500-0006-000700080009",
-    "expiration_date": "2025-10-27T09:07:17"
-    },
-    {
-    "key": "JH71C-A3240-H1024-5BVN3",
-    "pc_identifier": "03000200-0400-0500-0006-000700080009",
-    "expiration_date": "2025-10-27T09:05:28"
-    },
-    {
-    "key": "I6QVK-JFCL8-M9JEL-XFOW0",
-    "pc_identifier": "5CD0385C-4472-3B45-B195-3A10E80CAEDE",
-    "expiration_date": "2025-09-12T03:37:47"
-    },
-    {
-    "key": "098K5-TO7K5-6VB8X-9YFMJ",
-    "pc_identifier": "EDEDC5BF-93D7-D572-449A-A036BCABBCBA",
-    "expiration_date": "2025-09-10T04:01:18"
-    },
-    {
-    "key": "47KSQ-JML14-MI5X3-VPJ4J",
-    "pc_identifier": "03000200-0400-0500-0006-000700080009",
-    "expiration_date": "2025-10-23T07:47:00"
-    },
-    {
     "key": "86YW8-13V8L-56081-XWBF3",
     "pc_identifier": "03000200-0400-0500-0006-000700080009",
     "expiration_date": "2025-12-16T13:02:37"
-    },
-    {
-    "key": "E9W45-ZWI6V-2561Q-19KAX",
-    "pc_identifier": "E5AC26B7-B6A6-11EF-A4F7-40C2BA9F28FB",
-    "expiration_date": "2025-10-15T02:35:22"
-    },
-    {
-      "key": "6PO2P-3QTR5-S6TBU-8V9W0",
-      "pc_identifier": "03000200-0400-0500-0006-000700080009",
-      "expiration_date": "2025-08-31T23:59:59"
-    },
-    {
-    "key": "60B75-I649Z-ODKKI-DVH95",
-    "pc_identifier": "03000200-0400-0500-0006-000700080009",
-    "expiration_date": "2025-08-03T05:24:45"
-    },
-    {
-    "key": "PML9J-8AW6S-7AK7P-4SCWS",
-    "pc_identifier": "6BECA56F-68FA-BDEA-7C3D-C87F54046E29",
-    "expiration_date": "2025-10-16T13:29:07"
     },
     {
       "key": "61O2P-3Q4R5-S6T7U-8V9W0",
@@ -71,107 +21,9 @@
       "expiration_date": "2025-12-31T23:59:59"
     },
     {
-    "key": "I302G-U14OB-506DW-RHE1T",
-    "pc_identifier": "EC96C580-9461-11E4-9B28-6451064CA6D6",
-    "expiration_date": "2025-09-11T06:07:39"
-    },
-    {
-    "key": "5302G-U14OB-506DW-RHE1T",
-    "pc_identifier": "035E02D8-04D3-058D-8C06-740700080009",
-    "expiration_date": "2025-08-12T06:07:39"
-    },
-    {
-    "key": "A98DU-GE362-PWH31-684O5",
-    "pc_identifier": "437A6000-83A5-11EE-9136-905FEF133500",
-    "expiration_date": "2025-08-07T21:32:32"
-    },
-    {
-    "key": "PN8YJ-43TXZ-Z13DP-U5M7Y",
-    "pc_identifier": "26FDBA4F-B3C0-7C4F-9EBA-6FC6AED4CB92",
-    "expiration_date": "2025-10-03T00:55:04"
-    }, 
-    {
-    "key": "SBJR4-OPE4P-E4K8R-35CIY",
-    "pc_identifier": "B1553BD4-E219-EC11-80E1-088FC31B6051",
-    "expiration_date": "2025-08-07T10:06:23"
-    },
-    {
-      "key": "AXRTB-V7LJP-6D7MC-7FFNR",
-      "pc_identifier": "62006B9C-C796-0000-0000-000000000000",
-      "expiration_date": "2028-02-02T23:59:59"
-    },
-    {
-      "key": "R5I3Y-R02K4-KL7BU-4CBWE",
-      "pc_identifier": "03000200-0400-0500-0006-000700080009",
-      "expiration_date": "2025-10-30T23:18:43"
-    },
-    {
-      "key": "PUNGV-2223K-SC9R8-QQL58",
-      "pc_identifier": "0x88d82e9aace9",
-      "expiration_date": "2025-08-26T23:18:43"
-    },
-    {
-      "key": "50GWV-YF67I-G02J8-97WBL",
-      "pc_identifier": "0DD70CF6-142C-C043-8383-26C522FA8630",
-      "expiration_date": "2025-08-31T05:10:10"
-    },
-    {
-      "key": "R257I-2LK0A-3MZD2-N4S35",
-      "pc_identifier": "03C00218-044D-05BE-3B06-AE0700080009",
-      "expiration_date": "2025-10-15T02:35:22"
-    },
-   
-    {
-    "key": "XVMZ6-IJKPM-GR5T1-7HEC3",
-    "pc_identifier": "7C878F89-216D-E711-80FE-9829A63520CD",
-    "expiration_date": "2025-09-02T05:08:56"
-    },
-    
-    {
-    "key": "ExM1KIR-8BP39-016U5-N2WKL",
-    "pc_identifier": "03000200-0400-0500-0006-000700080009",
-    "expiration_date": "2025-07-07T05:51:28"
-    },
-   
-    {
-      "key": "3N1B5-UP2DA-K1S0T-V5VNS",
-      "pc_identifier": "0x60e32bd158de",
-      "expiration_date": "2025-08-10T23:18:43"
-    },
-    {
-    "key": "SGL85-C4WF5-BCOI9-WED2T",
-    "pc_identifier": "03000200-0400-0500-0006-000700080009",
-    "expiration_date": "2025-10-18T03:52:30"
-    },
-    {
-    "key": "B9YHY-BQIKU-VM7T9-503PI",
-    "pc_identifier": "03000200-0400-0500-0006-000700080009",
-    "expiration_date": "2025-07-27T07:55:06"
-    },
-    {
     "key": "MJ6O4-2MZVY-D5EMD-DT0BU",
     "pc_identifier": "4C4C4544-0032-4710-8033-B8C04F345731",
     "expiration_date": "2025-12-10T07:55:06"
-    },
-    {
-    "key": "74K0Y-7PLV3-4GC9Z-AUIO2",
-    "pc_identifier": "00000000-0000-0000-0000-D8CB8ADEDDFA",
-    "expiration_date": "2025-10-18T03:52:30"
-    },
-    {
-    "key": "L9TGJ-815EV-JPIOS-Q98GU",
-    "pc_identifier": "03000200-0400-0500-0006-000700080009",
-    "expiration_date": "2025-08-03T10:25:45"
-    },
-    {
-    "key": "M0M1A-KUW70-F9H6C-EVAUZ",
-    "pc_identifier": "E93C9F78-5AC7-234C-AE11-739825A87DE9",
-    "expiration_date": "2025-07-31T08:10:56"
-    },
-    {
-    "key": "8A4W3-Q8Z99-1NCG1-S8056",
-    "pc_identifier": "03000200-0400-0500-0006-000700080009",
-    "expiration_date": "2025-10-17T04:54:38"
     },
     {
     "key": "SN1F2-W8YJ9-33856-LHVB2",
