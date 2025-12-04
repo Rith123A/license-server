@@ -1,0 +1,19 @@
+{
+    "users": [
+        {
+            "username": "user123",
+            "password": "password456",
+            "expiration_date": "2026-12-31" 
+        },
+        {
+            "username": "Bunrith_Clinic",
+            "password": "clinicpassword",
+            "expiration_date": "2025-07-15"
+        },
+        {
+            "username": "ExpiredUser",
+            "password": "expired123",
+            "expiration_date": "2024-01-01" 
+        }
+    ]
+}
