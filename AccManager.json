@@ -34,6 +34,11 @@
     "key": "FNEF2-W8YJ9-33856-LHVB2",
     "pc_identifier": "0x88d82e9aace9",
     "expiration_date": "2026-01-30T06:10:01"
+    },
+    {
+    "key": "NNEF2-W8YJ9-13856-LHV82",
+    "pc_identifier": "03C00218-044D-05BE-3B06-AE0700080009",
+    "expiration_date": "2026-01-30T06:10:01"
     }
   ]
 }
